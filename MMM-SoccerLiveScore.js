@@ -280,10 +280,15 @@ Module.register("MMM-SoccerLiveScore", {
         }
     },
 
+	notificationReceived: function(notification, payload) {
+       	
+    },
+
     socketNotificationReceived: function (notification, payload) {
         if (notification === 'LOGO') {
             this.logos[payload.teamId] = payload.image;
         } else if (notification === 'STANDINGS') {
+            this.sendNotification('SOCCER_UPDATED', new Date())
             this.standings[payload.leagueId] = payload.standings;
             if (!this.config.showTables) {
                 this.updateDom();
